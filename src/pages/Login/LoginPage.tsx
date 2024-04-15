@@ -37,31 +37,45 @@ export const LoginPage = () => {
       const response = await axios.post("http://localhost:8080/login", formData);
       console.log(response.data); // 서버 응답 로그 출력
       
-      localStorage.setItem("refreshToken", response.data.refreshToken)
-      sessionStorage.setItem("accessToken", response.data.accessToken)
-      sessionStorage.setItem("idToken", response.data.idToken)
+      localStorage.setItem("refreshToken", response.data.tokenDto.refreshToken)
+      localStorage.setItem("accessToken", response.data.tokenDto.accessToken)
+      localStorage.setItem("idToken", response.data.tokenDto.idToken)
 
-      const payload = response.data.idToken.split('.')[1];
-      const decodedPayload = JSON.parse(window.atob(payload));
+      localStorage.setItem("isLoggedIn", 'true')
 
-      const userName = decodedPayload.email;
-
-      console.log(userName);
-
+      localStorage.setItem("userId", response.data.userId)
+      localStorage.setItem("userName", response.data.userName)
+      localStorage.setItem("email", response.data.email)
+      localStorage.setItem("expiredDate", response.data.expiredDate)
+      console.log(response.data)
+      
       navigate("/");
     } catch (error) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        password: ""
+      }));
+
+      window.alert("잘못된 아이디 또는 비밀번호 입니다.")
       console.error('There was an error!', error); // 오류 발생
     }
   };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSignUp(); // 엔터 키를 눌렀을 때 로그인 함수 호출
+    }
+  };
+
 
   return (
     <VStack spacing={5} w={"340px"}>
       <Heading as="h3">로그인</Heading>
       <FormControl>
-        <Input variant="outline" placeholder="이메일" name="email" value={formData.email} onChange={handleInputChange}/>
+        <Input variant="outline" placeholder="이메일" name="email" value={formData.email} onChange={handleInputChange} onKeyDown={handleKeyPress}/>
       </FormControl>
       <FormControl>
-        <Input variant="outline" placeholder="비밀번호" type="password" name="password" value={formData.password} onChange={handleInputChange}/>
+        <Input variant="outline" placeholder="비밀번호" type="password" name="password" value={formData.password} onChange={handleInputChange} onKeyDown={handleKeyPress}/>
       </FormControl>
       <Button colorScheme="teal" w={"100%"} onClick={handleSignUp}>
         로그인
