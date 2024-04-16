@@ -1,6 +1,8 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Container, Flex, SimpleGrid } from "@chakra-ui/react";
+import { Box, Container, Flex, SimpleGrid, Input, Button, IconButton, useColorModeValue, background } from "@chakra-ui/react";
+import { SearchIcon } from "@chakra-ui/icons"
+import axios from "axios";
 import Slider from "../../components/Slider";
 import ClassCard from "../../components/ClassCard";
 import SectionTitle from "../../components/SectionTitle";
@@ -59,6 +61,23 @@ const ClassCardList = ({ children }: { children: ReactNode }) => (
 function MainPage() {
   const navigate = useNavigate();
 
+  const [keyword, setKeyword] = useState("");
+  const [searchResults, setSearchResults] = useState([])
+
+  const handleSearch = () => {
+    axios.get('http://localhost:8080/course/search', {
+      params: {
+        keyword: keyword
+      }
+    })
+    .then((response) => {
+      setSearchResults(response.data);
+    })
+    .catch((error) => {
+      console.error('Error fetching search results', error);
+    });
+  };
+
   return (
     <>
       <Slider />
@@ -70,6 +89,26 @@ function MainPage() {
           width={"100%"}
           gap={4}
         >
+          <Box mx="auto" width="50%">
+            <Flex align="center" justify="center">
+              <input
+                type="text"
+                placeholder="검색어를 입력하세요"
+                value={keyword}
+                onChange={(event) => setKeyword(event.target.value)}
+                style={{ padding: "8px", fontSize: "16px", borderRadius: "999px", width: "100%", paddingLeft: "20px" }}
+                />
+                <Button 
+                  onClick={handleSearch}
+                  borderRadius="full"
+                  bgColor={useColorModeValue("gray.200", "gray.700")}
+                  _hover={{ bgColor: useColorModeValue("gray.300", "gray.600")}}
+                  ml={2}
+                >
+                  <SearchIcon />
+                 </Button>
+              </Flex>
+          </Box>
           <Box>
             <SectionTitle title={"BEST"} />
             <ClassCardList>
@@ -105,3 +144,4 @@ function MainPage() {
 }
 
 export default MainPage;
+
