@@ -24,7 +24,7 @@ const AccountLayout = (): ReactNode => {
       <Box as={"header"} w={{ lg: "350px" }} position={"relative"}>
         <Heading size="lg" color={"white"} px={8} pt={10} pb={10}>
           <Text>안녕하세요</Text>
-          <Text pt={1}>XXX님!</Text>
+          <Text pt={1}>{localStorage.getItem("userName")}님!</Text>
         </Heading>
       </Box>
       <AccountMenu />
@@ -64,7 +64,7 @@ const AccountLayout = (): ReactNode => {
           gap={{ lg: 3 }}
           p={3}
         >
-          <MenuButton text={"나의 강의장"} path={"/account/classroom"} />
+          <MenuButton text={"나의 강의장"} path={`/${localStorage.getItem("userId")}/classroom`} />
           <MenuButton text={"쿠폰"} path={"#"} />
           <MenuButton text={"거래내역"} path={"#"} />
           <Show above={"lg"}>
@@ -76,7 +76,7 @@ const AccountLayout = (): ReactNode => {
                 w={"100%"}
                 _hover={{ bgColor: "transparent" }}
               >
-                로그아웃
+                회원탈퇴
               </Button>
             </Box>
           </Show>

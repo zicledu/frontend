@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Drawer,
   DrawerBody,
@@ -19,6 +19,13 @@ import { Link } from "react-router-dom";
 
 function CustomDrawer() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === 'true'; // 로그인 여부 확인
+
+  const handleLogout = () => {
+    // 로그아웃 로직 구현
+    localStorage.removeItem("isLoggedIn");
+    // 다른 필요한 로그아웃 처리 구현
+  };
 
   return (
     <>
@@ -30,12 +37,19 @@ function CustomDrawer() {
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader>
-            <Link to={"/login"}>
+            {isLoggedIn ? (
               <Flex alignItems={"center"}>
                 <Avatar src="https://bit.ly/broken-link" size="xs" mr={3} />
-                <Text>로그인</Text>
+                <Text>{localStorage.getItem("userName")}</Text>
               </Flex>
-            </Link>
+            ) : (
+              <Link to={"/login"}>
+                <Flex alignItems={"center"}>
+                  <Avatar src="https://bit.ly/broken-link" size="xs" mr={3} />
+                  <Text>로그인</Text>
+                </Flex>
+              </Link>
+            )}
           </DrawerHeader>
 
           <DrawerBody>
@@ -46,12 +60,22 @@ function CustomDrawer() {
             </Box>
             <Box p={3}>
               <Text fontSize={"lg"} fontWeight={"bold"}>
-                <Link to={"/account/classroom"}>나의 강의장</Link>
+                <Link to={`/${localStorage.getItem("userId")}/classroom`}>나의 강의장</Link>
               </Text>
             </Box>
           </DrawerBody>
           <DrawerFooter borderTopWidth="1px">
-            <Text onClick={onClose}>로그아웃</Text>
+            {isLoggedIn ? (
+              <Flex alignItems={"end"}>
+                
+              </Flex>
+            ) : (
+              <Link to={"/signup"}>
+                <Flex alignItems={"end"}>
+                  <Text>회원가입</Text>
+                </Flex>
+              </Link>
+            )}
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
