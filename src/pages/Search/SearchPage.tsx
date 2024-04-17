@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { Box, Container, Flex, SimpleGrid, Input, Button, IconButton, useColorModeValue, background } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons"
 import axios from "axios";
-import Slider from "../../components/Slider";
 import ClassCard from "../../components/ClassCard";
 import SectionTitle from "../../components/SectionTitle";
 import ContentArea from "../../components/ContentArea";
+
 // 강의 정보에 대한 타입 정의
 type CourseInfo = {
   title: string;
@@ -14,6 +14,16 @@ type CourseInfo = {
   classId: number;
   thumbnailPath: string;
 };
+
+// 검색 정보에 대한 타입 정의
+type CourseSearchInfo = {
+  title: string;
+  description: string;
+  courseId: number;
+  thumbnailPath: string;
+  tags: string;
+  userName: string;
+}
 
 const ClassCardList = ({ children }: { children: ReactNode }) => (
   <SimpleGrid
@@ -26,7 +36,7 @@ const ClassCardList = ({ children }: { children: ReactNode }) => (
   </SimpleGrid>
 );
 
-function MainPage() {
+function SearchPage() {
   const navigate = useNavigate();
   // 최고의 결과를 저장할 상태
   const [bestResults, setBestResults] = useState<CourseInfo[]>([]);
@@ -34,14 +44,17 @@ function MainPage() {
   const [newResults, setNewResults] = useState<CourseInfo[]>([]);
   // 검색 결과를 저장할 상태
   const [keyword, setKeyword] = useState("");
-  const [searchResults, setSearchResults] = useState([])
+  const [searchResults, setSearchResults] = useState<CourseSearchInfo[]>([]);
+  // 검색 버튼 클릭 여부를 저장할 상태
+  const [isSearchButtonClick, setIsSearchButtonClick] = useState<boolean>(false);
 
   // 페이지 로드 시 최고의 결과와 최신의 결과를 가져오는 useEffect
   useEffect(() => {
     handleBest();
     handleNew();
   }, []); // 페이지가 로드될 때 한 번만 실행
-//서버에서 최고의 결과를 가져오는 함수
+
+// 서버에서 최고의 결과를 가져오는 함수
 const handleBest = () => {
   axios.get('http://localhost:8080/course/best')
   .then((response) => {
@@ -63,23 +76,35 @@ const handleNew = () => {
   });
 };
 
-const handleSearch = () => {
-  axios.get('http://localhost:8080/course/search', {
-    params: {
-      keyword: keyword
+/* ********************  검색 부분  ***************************/
+
+  //  handleSearch 함수에서 검색어가 비어있는 경우 처리를 추가합니다.
+  const handleSearch = () => {
+    if (!keyword.trim()) {  // 검색어가 비어있는 경우 처리
+      console.log("검색어를 입력하세요.");
+      return; // 빈 검색어일 경우 함수를 빠르게 종료
     }
-  })
-  .then((response) => {
-    setSearchResults(response.data);
-  })
-  .catch((error) => {
-    console.error('Error fetching search results', error);
-  });
-};
+
+    axios.get('http://localhost:8080/course/search', {
+      params: {
+        keyword: keyword
+      },
+    })
+    .then((response) => {
+      setSearchResults(response.data.data); // response.data -> response.data.data 로 하니까 나온다....
+      console.log('Search results:', response.data); // 검색 결과를 콘솔에 출력
+      setIsSearchButtonClick(true); // 검색 버튼 클릭을 true로 설정
+      // 검색 결과가 나오면 bestResults와 newResults를 비워줍니다.
+      setBestResults([]);
+      setNewResults([]);
+    })
+    .catch((error) => {
+      console.error('Error fetching search results', error);
+    });
+  };
 
   return (
     <>
-      <Slider />
       <ContentArea>
         <Flex
           flexDirection={"column"}
@@ -113,6 +138,27 @@ const handleSearch = () => {
                  </Button>
               </Flex>
           </Box>
+          {/* 검색 결과를 보여줄지 여부를 조건부 렌더링으로 설정 */}
+          {isSearchButtonClick && (
+            <>
+              <Box>
+                <SectionTitle title={"검색 결과"} />
+                <ClassCardList>
+                  {searchResults.map((item, idx) => (
+                    <ClassCard
+                      key={idx}
+                      title={item.title}
+                      desc={item.description}
+                      onClick={() => navigate(`/class/${item.courseId}`)}
+                      imgSrc={item.thumbnailPath}
+                    />
+                  ))}
+                </ClassCardList>
+              </Box>
+            </>
+          )}
+          {/* 최고의 결과 표시 */}
+          {bestResults.length > 0 && (
           <Box>
             <SectionTitle title={"BEST"} />
             <ClassCardList>
@@ -127,7 +173,10 @@ const handleSearch = () => {
               ))}
             </ClassCardList>
           </Box>
-          
+          )}
+
+          {/* 최신의 결과 표시 */}
+          {newResults.length > 0 && (
           <Box>
             <SectionTitle title={"New"} />
             <ClassCardList>
@@ -142,7 +191,8 @@ const handleSearch = () => {
               ))}
             </ClassCardList>
           </Box>
-          
+          )}
+
         </Flex>
       </ContentArea>
     </>
@@ -150,4 +200,4 @@ const handleSearch = () => {
 }
 
 
-export default MainPage;
+export default SearchPage;
