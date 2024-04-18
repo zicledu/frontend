@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { API } from "../../../config"
 
 interface MyClassDataType {
   id: number;
@@ -36,7 +37,7 @@ function MyClassroom() {
 
       try {
         const response = await axios.get(
-          `http://localhost:8080/course/${userId}`
+          API.COURSE_LIST_BY_USERID.replace("userId", userId ?? "")
         , {
             headers: {
               Authorization: "Bearer " + localStorage.getItem("idToken")

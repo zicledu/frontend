@@ -2,6 +2,7 @@ import React, { KeyboardEvent, useState } from "react";
 import axios from "axios";
 import { Button, FormControl, Heading, Input, RadioGroup, VStack, Radio, Flex, Spacer, Toast } from "@chakra-ui/react";
 import {useNavigate } from "react-router-dom";
+import { API } from "../../../config"
 
 function SignUpPage() {
 
@@ -30,7 +31,7 @@ function SignUpPage() {
   const handleSignUp = async () => {
     try {
       // 입력된 데이터를 서버로 전송합니다.
-      const response = await axios.post("http://localhost:8080/join", formData);
+      const response = await axios.post(API.SIGNUP, formData);
       console.log(response.data); // 서버 응답 로그 출력
 
       alert("이메일에서 회원 가입 확인 후 로그인 해주세요")

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Navigate } from "react-router-dom";
+import { API } from "../../config"
 
 export const sendRequestWithRefresh = async () => {
   try {
@@ -18,7 +19,7 @@ export const sendRequestWithRefresh = async () => {
   
     if (isLoggedIn && expiredDate && expiredDate < currentTime) {
       const refreshToken = localStorage.getItem("refreshToken");
-      const response = await axios.post("http://localhost:8080/refresh", 
+      const response = await axios.post(API.REFRESH, 
       { refreshToken },
     );
       // 새로운 토큰을 로컬 스토리지에 저장

@@ -5,6 +5,7 @@ import React, {useState, useEffect} from "react";
 import CustomDrawer from "../CustomDrawer";
 import logoImage from "/images/monstera-logo.png";
 import ContentBox from "../ContentBox";
+import { API } from "../../../config"
 
 const HeaderLink = ({ text, path, onClick }: { text: string; path: string; onClick?: () => void }) => (
   <Text color={"white"} fontWeight={"bold"}>
@@ -30,10 +31,10 @@ const Header = () => {
 
   // 로그아웃 함수
   const handleLogout = async () => {
-
+    console.log(API.LOGOUT);
     // 입력된 데이터를 서버로 전송합니다.
     const response = await axios.post(
-      "http://localhost:8080/logout", 
+      API.LOGOUT, 
       {},
       {
         headers: {

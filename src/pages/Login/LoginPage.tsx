@@ -9,7 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
-
+import {API} from "../../../config"
 export const LoginPage = () => {
 
   
@@ -34,7 +34,7 @@ export const LoginPage = () => {
 
 
       // 입력된 데이터를 서버로 전송합니다.
-      const response = await axios.post("http://localhost:8080/login", formData);
+      const response = await axios.post(API.LOGIN, formData);
       console.log(response.data); // 서버 응답 로그 출력
       
       localStorage.setItem("refreshToken", response.data.tokenDto.refreshToken)

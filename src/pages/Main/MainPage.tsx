@@ -7,6 +7,7 @@ import Slider from "../../components/Slider";
 import ClassCard from "../../components/ClassCard";
 import SectionTitle from "../../components/SectionTitle";
 import ContentArea from "../../components/ContentArea";
+import { API } from "../../../config";
 
 const TempClassInfo = [
   {
@@ -65,7 +66,7 @@ function MainPage() {
   const [searchResults, setSearchResults] = useState([])
 
   const handleSearch = () => {
-    axios.get('http://localhost:8080/course/search', {
+    axios.get(API.COURSE_LIST_BY_SEARCH, {
       params: {
         keyword: keyword
       }

@@ -20,6 +20,7 @@ import MainPage from "./pages/Main/MainPage";
 import { sendRequestWithRefresh } from './utils/authUtils';
 import NotFoundPage from "./pages/error/NotFoundPage";
 import UnAuthorizedPage from "./pages/error/UnAuthorizedPage"
+import  UploadPage  from "./pages/upload/UploadPage"
 
 function App() {
   
@@ -37,6 +38,7 @@ function App() {
           <Route path={"/event"} element={<EventPage />} />
           <Route path={"/welcomebenefit"} element={<WelcomeBenefit />} />
         </Route>
+        <Route path="/upload" element={<UploadPage />}></Route>
         <Route path="/:userId" element={<AccountLayout />}>
           <Route path="/:userId/classroom" element={<MyClassroom />} />
         </Route>
@@ -48,9 +50,9 @@ function App() {
           <Route path="/classroom/:classId" element={<ClassRoomPage />} />
         </Route>
         {/* 인증되지 않은 경로로의 리디렉션 처리 */}
-        <Route path="/error/401" element={<UnAuthorizedPage/>}/>
-        <Route path="/error/404" element={<NotFoundPage/>}/>
-        <Route path="*" element={<Navigate to="/error/404" replace />} />
+        <Route path="/error/401" element={<UnAuthorizedPage/>}></Route>
+        <Route path="/error/404" element={<NotFoundPage/>}></Route>
+        <Route path="*" element={<Navigate to="/error/404" replace />}></Route>
         
       </Routes>
     </Box>
