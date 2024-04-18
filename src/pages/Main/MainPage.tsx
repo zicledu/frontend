@@ -7,48 +7,7 @@ import Slider from "../../components/Slider";
 import ClassCard from "../../components/ClassCard";
 import SectionTitle from "../../components/SectionTitle";
 import ContentArea from "../../components/ContentArea";
-<<<<<<< HEAD
-import { API } from "../../../config";
-
-const TempClassInfo = [
-  {
-    title: "Green Screen, RealTime VFX",
-    desc: "Unreal Engine",
-    classId: 1,
-    imgSrc: "/images/1.png",
-  },
-  {
-    title: "Filming in Green Screen",
-    desc: "VIVEMARS",
-    classId: 2,
-    imgSrc: "/images/2.png",
-  },
-  {
-    title: "Cosmic Horror",
-    desc: "Unreal Engine",
-    classId: 3,
-    imgSrc: "/images/3.png",
-  },
-  {
-    title: "Led wall Installation",
-    desc: "Unreal Engine",
-    classId: 4,
-    imgSrc: "/images/4.png",
-  },
-  {
-    title: "Led Wall Virtual Production",
-    desc: "Unreal Engine",
-    classId: 5,
-    imgSrc: "/images/5.png",
-  },
-  {
-    title: "ANAMORPHIC Garden",
-    desc: "Unreal Engine",
-    classId: 6,
-    imgSrc: "/images/6.png",
-  },
-];
-=======
+import { API } from "../../../config"
 // 강의 정보에 대한 타입 정의
 type CourseInfo = {
   title: string;
@@ -56,7 +15,6 @@ type CourseInfo = {
   classId: number;
   thumbnailPath: string;
 };
->>>>>>> f0a1093344e72a27b992ac8e5afc18f138c0f401
 
 const ClassCardList = ({ children }: { children: ReactNode }) => (
   <SimpleGrid
@@ -79,21 +37,6 @@ function MainPage() {
   const [keyword, setKeyword] = useState("");
   const [searchResults, setSearchResults] = useState([])
 
-<<<<<<< HEAD
-  const handleSearch = () => {
-    axios.get(API.COURSE_LIST_BY_SEARCH, {
-      params: {
-        keyword: keyword
-      }
-    })
-    .then((response) => {
-      setSearchResults(response.data);
-    })
-    .catch((error) => {
-      console.error('Error fetching search results', error);
-    });
-  };
-=======
   // 페이지 로드 시 최고의 결과와 최신의 결과를 가져오는 useEffect
   useEffect(() => {
     handleBest();
@@ -101,7 +44,7 @@ function MainPage() {
   }, []); // 페이지가 로드될 때 한 번만 실행
 //서버에서 최고의 결과를 가져오는 함수
 const handleBest = () => {
-  axios.get('http://localhost:8080/course/best')
+  axios.get(API.COURSE_LIST_BY_BEST)
   .then((response) => {
     setBestResults(response.data.data); // 최고의 결과를 state에 저장
   })
@@ -112,7 +55,7 @@ const handleBest = () => {
 
 // 서버에서 최신의 결과를 가져오는 함수
 const handleNew = () => {
-  axios.get('http://localhost:8080/course/new')
+  axios.get(API.COURSE_LIST_BY_NEW)
   .then((response) => {
     setNewResults(response.data.data); // 최신의 결과를 state에 저장
   })
@@ -122,7 +65,7 @@ const handleNew = () => {
 };
 
 const handleSearch = () => {
-  axios.get('http://localhost:8080/course/search', {
+  axios.get(API.COURSE_LIST_BY_SEARCH, {
     params: {
       keyword: keyword
     }
@@ -134,7 +77,6 @@ const handleSearch = () => {
     console.error('Error fetching search results', error);
   });
 };
->>>>>>> f0a1093344e72a27b992ac8e5afc18f138c0f401
 
   return (
     <>
