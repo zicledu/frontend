@@ -7,7 +7,6 @@ import Slider from "../../components/Slider";
 import ClassCard from "../../components/ClassCard";
 import SectionTitle from "../../components/SectionTitle";
 import ContentArea from "../../components/ContentArea";
-<<<<<<< HEAD
 import { API } from "../../../config";
 
 const TempClassInfo = [
@@ -48,15 +47,6 @@ const TempClassInfo = [
     imgSrc: "/images/6.png",
   },
 ];
-=======
-// 강의 정보에 대한 타입 정의
-type CourseInfo = {
-  title: string;
-  description: string;
-  classId: number;
-  thumbnailPath: string;
-};
->>>>>>> f0a1093344e72a27b992ac8e5afc18f138c0f401
 
 const ClassCardList = ({ children }: { children: ReactNode }) => (
   <SimpleGrid
@@ -79,7 +69,6 @@ function MainPage() {
   const [keyword, setKeyword] = useState("");
   const [searchResults, setSearchResults] = useState([])
 
-<<<<<<< HEAD
   const handleSearch = () => {
     axios.get(API.COURSE_LIST_BY_SEARCH, {
       params: {
@@ -93,48 +82,6 @@ function MainPage() {
       console.error('Error fetching search results', error);
     });
   };
-=======
-  // 페이지 로드 시 최고의 결과와 최신의 결과를 가져오는 useEffect
-  useEffect(() => {
-    handleBest();
-    handleNew();
-  }, []); // 페이지가 로드될 때 한 번만 실행
-//서버에서 최고의 결과를 가져오는 함수
-const handleBest = () => {
-  axios.get('http://localhost:8080/course/best')
-  .then((response) => {
-    setBestResults(response.data.data); // 최고의 결과를 state에 저장
-  })
-  .catch((error) => {
-    console.error('Error fetching best results', error);
-  });
-};
-
-// 서버에서 최신의 결과를 가져오는 함수
-const handleNew = () => {
-  axios.get('http://localhost:8080/course/new')
-  .then((response) => {
-    setNewResults(response.data.data); // 최신의 결과를 state에 저장
-  })
-  .catch((error) => {
-    console.error('Error fetching new results', error);
-  });
-};
-
-const handleSearch = () => {
-  axios.get('http://localhost:8080/course/search', {
-    params: {
-      keyword: keyword
-    }
-  })
-  .then((response) => {
-    setSearchResults(response.data);
-  })
-  .catch((error) => {
-    console.error('Error fetching search results', error);
-  });
-};
->>>>>>> f0a1093344e72a27b992ac8e5afc18f138c0f401
 
   return (
     <>
