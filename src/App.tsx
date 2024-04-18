@@ -17,6 +17,7 @@ import { LoginPage } from "./pages/Login/LoginPage";
 import SignUpPage from "./pages/SignUp/SignupPage";
 import ClassRoomPage from "./pages/ClassRoom/ClassRoomPage";
 import MainPage from "./pages/Main/MainPage";
+import SearchPage from "./pages/Search/SearchPage";
 import { sendRequestWithRefresh } from './utils/authUtils';
 import NotFoundPage from "./pages/error/NotFoundPage";
 import UnAuthorizedPage from "./pages/error/UnAuthorizedPage"
@@ -37,6 +38,7 @@ function App() {
           <Route path={"/new-classes"} element={<NewClassPage />} />
           <Route path={"/event"} element={<EventPage />} />
           <Route path={"/welcomebenefit"} element={<WelcomeBenefit />} />
+          <Route path={"/search"} element={<SearchPage />} />
         </Route>
         <Route path="/upload" element={<UploadPage />}></Route>
         <Route path="/:userId" element={<AccountLayout />}>
