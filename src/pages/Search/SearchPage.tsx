@@ -1,5 +1,7 @@
 import React, { ReactNode, useEffect, useState, useContext } from 'react';
 import { useNavigate, useLocation, useSearchParams } from 'react-router-dom';
+import Logger from 'console-log-level';  
+let log = Logger({level: 'trace'});
 import {
     Box,
     Container,
@@ -49,12 +51,15 @@ function SearchPage() {
     useEffect(() => {
         // search 속성에 접근하면 쿼리 스트링 값을 얻을 수 있다.
         const keyWord = decodeURI(location.search);
-
+        console.log('keyWord ===>'+keyWord)
         if (!!keyWord) {
             // 검색어가 존재하는 경우에 API 경로에 쿼리 스트링으로 전달하여 fetch한다.
             const fetchLectures = async () => {
                 try {
-                    const response = await axios(`${API.COURSE_LIST_BY_SEARCH}?keyword=${keyWord}`);
+                   
+                    const getValue = API.COURSE_LIST_BY_SEARCH + keyWord
+                    console.log('getValue ===>'+getValue)
+                    const response = await axios.get(`${getValue}`);
                     //const data = await response.json();
 
                     setSearchResults(response.data.data);
