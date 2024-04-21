@@ -12,7 +12,7 @@ const HeaderLink = ({ text, path, onClick }: { text: string; path: string; onCli
     {onClick ? (
       <a href="#" onClick={onClick}>{text}</a>
     ) : (
-      <Link to={path}>{text}</Link>
+      <Link to={path} onClick={() => window.location.pathname === path && window.location.reload()}>{text}</Link>
     )}
   </Text>
 );
@@ -123,10 +123,7 @@ const Header = () => {
             <HeaderLink text={"신규 클래스"} path={"/new-classes"} />
           </Box>
           <Box flexShrink={0}>
-            <HeaderLink text={"이벤트"} path={"/event"} />
-          </Box>
-          <Box flexShrink={0}>
-            <HeaderLink text={"웰컴기프트"} path={"/welcomebenefit"} />
+            <HeaderLink text={"강의"} path={"/search"} />
           </Box>
         </Flex>
       </ContentBox>
