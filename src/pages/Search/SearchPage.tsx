@@ -22,6 +22,7 @@ import ContentArea from '../../components/ContentArea';
 import { API } from '../../../config';
 import SearchBar from '../../components/SearchBar/SearchBar';
 
+
 // 검색 정보에 대한 타입 정의
 type CourseSearchInfo = {
     title: string;
@@ -51,14 +52,14 @@ function SearchPage() {
     useEffect(() => {
         // search 속성에 접근하면 쿼리 스트링 값을 얻을 수 있다.
         const keyWord = decodeURI(location.search);
-        console.log('keyWord ===>'+keyWord)
+        console.log('keyWord===>', keyWord)
+
         if (!!keyWord) {
             // 검색어가 존재하는 경우에 API 경로에 쿼리 스트링으로 전달하여 fetch한다.
             const fetchLectures = async () => {
                 try {
-                   
                     const getValue = API.COURSE_LIST_BY_SEARCH + keyWord
-                    console.log('getValue ===>'+getValue)
+                    console.log('getValue===>',getValue)
                     const response = await axios.get(`${getValue}`);
                     //const data = await response.json();
 
