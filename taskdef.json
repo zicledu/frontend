@@ -1,9 +1,9 @@
 {
-    "executionRoleArn": "arn:aws:iam::(AWS_ACCOUNT_ID):role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::992382811294:role/ecsTaskExecutionRole",
     "containerDefinitions": [
         {
             "name": "ecs-container",
-            "image": "(AWS_ACCOUNT_ID).dkr.ecr.ap-northeast-2.amazonaws.com/blue-web",
+            "image": "992382811294.dkr.ecr.ap-northeast-2.amazonaws.com/blue-web",
             "memory": 256,
             "essential": true,
             "portMappings": [
