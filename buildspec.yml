@@ -5,8 +5,8 @@ phases:
     commands:
       - ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.ap-northeast-2.amazonaws.com
-      - REPOSITORY_URI=${AWS_ACCOUNT_ID}.dkr.ecr.ap-northeast-2.amazonaws.com/ecr
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin 992382811294.dkr.ecr.ap-northeast-2.amazonaws.com
+      - REPOSITORY_URI=992382811294.dkr.ecr.ap-northeast-2.amazonaws.com/ecr
       - IMAGE_TAG=$(date "+%Y-%m-%d.%H.%M.%S")
 
   install:
