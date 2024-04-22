@@ -6,8 +6,7 @@ export const API = {
     COURSE_LIST_BY_USERID : `${IP_ADDRESS}/course/userId`,
     COURSE_LIST_BY_SEARCH : `${IP_ADDRESS}/course`,
     LOGOUT : `${IP_ADDRESS}/logout`,
-    LOGIN : `${IP_ADDRESS}/lgoin`,
+    LOGIN : `${IP_ADDRESS}/login`,
     SIGNUP : `${IP_ADDRESS}/join`,
     REFRESH : `${IP_ADDRESS}/refresh`
-    
-};
+}
