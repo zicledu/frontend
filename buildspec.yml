@@ -21,10 +21,11 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t $REPOSITORY_URI:$IMAGE_TAG . --no-cache
+      - docker build -t 992382811294.dkr.ecr.ap-northeast-2.amazonaws.com/ecr2:latest .
       - echo Build completed on `date`
       - echo Pushing the Docker images...
-      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - docker tag ecr2:latest 992382811294.dkr.ecr.ap-northeast-2.amazonaws.com/ecr2:latest
+      - docker push 992382811294.dkr.ecr.ap-northeast-2.amazonaws.com/ecr2:latest
       - echo Writing image definitions file...
       - printf '[{"name":"ecs2","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
       - npm run build # 리액트 애플리케이션 빌드
