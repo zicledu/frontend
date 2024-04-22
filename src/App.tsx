@@ -39,8 +39,9 @@ function App() {
           <Route path={"/event"} element={<EventPage />} />
           <Route path={"/welcomebenefit"} element={<WelcomeBenefit />} />
           <Route path={"/search"} element={<SearchPage />} />
+          <Route path="/upload" element={<UploadPage editorRef={React.createRef()} />}></Route>
+          {/* <Route path="/upload" element={<UploadPage />}></Route> */}
         </Route>
-        <Route path="/upload" element={<UploadPage />}></Route>
         <Route path="/:userId" element={<AccountLayout />}>
           <Route path="/:userId/classroom" element={<MyClassroom />} />
         </Route>

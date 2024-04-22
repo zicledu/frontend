@@ -1,5 +1,6 @@
-// const IP_ADDRESS = import.meta.env.VITE_IP_ADDRESS || import.meta.env.GIT_IP_ADDRESS;
-const IP_ADDRESS = "https://zhl2juvik8.execute-api.ap-northeast-2.amazonaws.com/lms";
+const IP_ADDRESS = import.meta.env.VITE_IP_ADDRESS || import.meta.env.GIT_IP_ADDRESS;
+
+// const IP_ADDRESS = "13.125.189.126:8080";
 
 
 export const API = {
