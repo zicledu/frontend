@@ -1,39 +1,15 @@
 version: 0.2
 
 phases:
-  pre_build:
-    commands:
-      - ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
-      - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin 992382811294.dkr.ecr.ap-northeast-2.amazonaws.com
-      - REPOSITORY_URI=992382811294.dkr.ecr.ap-northeast-2.amazonaws.com/ecr
-      - IMAGE_TAG=$(date "+%Y-%m-%d.%H.%M.%S")
-
   install:
     runtime-versions:
       nodejs: 18
     commands:
       - echo "Node.js version $(node -v)"
-      - npm init -y
       - npm install # 필요한 모듈 설치
 
   build:
     commands:
-      - echo Build started on `date`
-      - echo Building the Docker image...
-      - docker build -t $REPOSITORY_URI:$IMAGE_TAG . --no-cache
-      - echo Build completed on `date`
-      - echo Pushing the Docker images...
-      - docker push $REPOSITORY_URI:$IMAGE_TAG
-      - echo Writing image definitions file...
-      - printf '[{"name":"ecs-container","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
       - npm run build # 리액트 애플리케이션 빌드
       - aws s3 cp dist/index.html s3://fronttest-min/index.html
-      # - aws s3 cp dist/* s3://fronttest-min/
       - aws s3 cp --recursive dist/ s3://fronttest-min/
-
-artifacts:
-  files: 
-    - imagedefinitions.json
-    - taskdef.json
-    - appspec.yaml
