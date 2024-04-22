@@ -30,7 +30,7 @@ function ClassDetailPage() {
         </TabList>
 
         <TabPanels>
-          <ContentArea className={"class-detail"} bgColor={"gray.900"}>
+          <ContentArea className={"class-detail"} bgColor={"white"}>
             <TabPanel p={0}>
               <ClassInfo />
             </TabPanel>
