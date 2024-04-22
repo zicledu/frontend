@@ -26,7 +26,7 @@ phases:
       - echo Pushing the Docker images...
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
-      - printf '[{"name":"ecs-container","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - printf '[{"name":"ecs2","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
       - npm run build # 리액트 애플리케이션 빌드
       - aws s3 cp dist/index.html s3://fronttest-min/index.html
       # - aws s3 cp dist/* s3://fronttest-min/
