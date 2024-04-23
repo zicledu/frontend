@@ -46,6 +46,7 @@ function SearchBar(props: SearchBarPropsType) {
             style={{ padding: "8px", fontSize: "16px", borderRadius: "999px", width: "100%", paddingLeft: "20px" }}
           />
           <Button 
+            type="submit"
             borderRadius="full"
             bgColor={useColorModeValue("gray.200", "gray.700")}
             _hover={{ bgColor: useColorModeValue("gray.300", "gray.600")}}

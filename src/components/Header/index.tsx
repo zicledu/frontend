@@ -10,7 +10,7 @@ import { API } from "../../../config"
 const HeaderLink = ({ text, path, onClick }: { text: string; path: string; onClick?: () => void }) => (
   <Text color={"white"} fontWeight={"bold"}>
     {onClick ? (
-      <a href="#" onClick={onClick}>{text}</a>
+      <a href="" onClick={onClick}>{text}</a>
     ) : (
       <Link to={path} onClick={() => window.location.pathname === path && window.location.reload()}>{text}</Link>
     )}
@@ -123,7 +123,7 @@ const Header = () => {
             <HeaderLink text={"신규 클래스"} path={"/new-classes"} />
           </Box>
           <Box flexShrink={0}>
-            <HeaderLink text={"강의"} path={"/search"} />
+            <HeaderLink text={"강의"} path={"/search"} onClick={() => navigate("/search")} />
           </Box>
         </Flex>
       </ContentBox>
