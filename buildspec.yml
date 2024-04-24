@@ -6,7 +6,8 @@ phases:
       nodejs: 18
     commands:
       - echo "Node.js version $(node -v)"
-      - npm install --force # 필요한 모듈 설치
+      - npm install --force --save-dev @types/console-log-level # 필요한 모듈 설치
+      
 
   build:
     commands:

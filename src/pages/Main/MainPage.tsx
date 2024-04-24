@@ -47,6 +47,7 @@ const handleBest = () => {
   axios.get(API.COURSE_LIST_BY_BEST)
   .then((response) => {
     setBestResults(response.data.data); // 최고의 결과를 state에 저장
+    console.log(response);
   })
   .catch((error) => {
     console.error('Error fetching best results', error);
@@ -58,6 +59,7 @@ const handleNew = () => {
   axios.get(API.COURSE_LIST_BY_NEW)
   .then((response) => {
     setNewResults(response.data.data); // 최신의 결과를 state에 저장
+    console.log(response);
   })
   .catch((error) => {
     console.error('Error fetching new results', error);
