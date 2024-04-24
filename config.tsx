@@ -18,7 +18,7 @@ export const API = {
     CLASS_ENROLLMENT : `${IP_ADDRESS}/class/enrollment`,
     CLASS_CURRICULUM : `${IP_ADDRESS}/class/curriculum/courseId`,
     CLASS_INSTRUCTOR : `${IP_ADDRESS}/class/instructor/courseId`,
-    UPLOAD_IMAGE : `${IP_ADDRESS}/upload`,
+    UPLOAD_IMAGE : `${IP_ADDRESS}/upload/image`,
     UPLOAD_COURSE : `${IP_ADDRESS}/upload`
 
     
