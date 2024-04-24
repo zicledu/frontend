@@ -14,6 +14,7 @@ type CourseInfo = {
   description: string;
   classId: number;
   thumbnailPath: string;
+  courseId: number;
 };
 
 const ClassCardList = ({ children }: { children: ReactNode }) => (
@@ -114,7 +115,7 @@ const handleSearch = () => {
                   key={idx}
                   title={item.title}
                   desc={item.description}
-                  onClick={() => navigate(`/class/${item.classId}`)}
+                  onClick={() => navigate(`/class/${item.courseId}`)}
                   imgSrc={item.thumbnailPath}
                 />
               ))}
@@ -129,7 +130,7 @@ const handleSearch = () => {
                   key={idx}
                   title={item.title}
                   desc={item.description}
-                  onClick={() => navigate(`/class/${item.classId}`)}
+                  onClick={() => navigate(`/class/${item.courseId}`)}
                   imgSrc={item.thumbnailPath}
                 />
               ))}

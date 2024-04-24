@@ -47,6 +47,7 @@ export const LoginPage = () => {
       localStorage.setItem("userName", response.data.userName)
       localStorage.setItem("email", response.data.email)
       localStorage.setItem("expiredDate", response.data.expiredDate)
+      localStorage.setItem("role", response.data.role)
       console.log(response.data)
       
       navigate("/");
