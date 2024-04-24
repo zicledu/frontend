@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Box, Container, Flex, SimpleGrid, Input, Button, IconButton, useColorModeValue, background } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons"
 import axios from "axios";
@@ -14,7 +14,6 @@ type CourseInfo = {
   description: string;
   classId: number;
   thumbnailPath: string;
-  courseId: number;
 };
 
 const ClassCardList = ({ children }: { children: ReactNode }) => (
@@ -36,6 +35,7 @@ function MainPage() {
   const [newResults, setNewResults] = useState<CourseInfo[]>([]);
   // 검색 결과를 저장할 상태
   const [keyword, setKeyword] = useState("");
+  const [searchResults, setSearchResults] = useState([])
 
   // 페이지 로드 시 최고의 결과와 최신의 결과를 가져오는 useEffect
   useEffect(() => {
@@ -65,10 +65,17 @@ const handleNew = () => {
 };
 
 const handleSearch = () => {
-  // 검색 키워드가 비어있지 않은 경우에만 검색 페이지로 이동
-  if (keyword.trim()) {
-    navigate(`/search?keyword=${keyword}`);
-  }
+  axios.get(API.COURSE_LIST_BY_SEARCH, {
+    params: {
+      keyword: keyword
+    }
+  })
+  .then((response) => {
+    setSearchResults(response.data);
+  })
+  .catch((error) => {
+    console.error('Error fetching search results', error);
+  });
 };
 
   return (
@@ -115,7 +122,7 @@ const handleSearch = () => {
                   key={idx}
                   title={item.title}
                   desc={item.description}
-                  onClick={() => navigate(`/class/${item.courseId}`)}
+                  onClick={() => navigate(`/class/${item.classId}`)}
                   imgSrc={item.thumbnailPath}
                 />
               ))}
@@ -130,7 +137,7 @@ const handleSearch = () => {
                   key={idx}
                   title={item.title}
                   desc={item.description}
-                  onClick={() => navigate(`/class/${item.courseId}`)}
+                  onClick={() => navigate(`/class/${item.classId}`)}
                   imgSrc={item.thumbnailPath}
                 />
               ))}

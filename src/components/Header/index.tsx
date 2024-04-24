@@ -106,7 +106,7 @@ const Header = () => {
             <HeaderLink text={"신규 클래스"} path={"/new-classes"} />
           </Box>
           <Box flexShrink={0}>
-            <HeaderLink text={"강의"} path={"/search"} onClick={() => navigate("/search")} />
+            <HeaderLink text={"강의 검색"} path={"/search"} onClick={() => navigate("/search")} />
           </Box>
         </Flex>
       </ContentBox>
