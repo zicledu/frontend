@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import TuiEditor from '../../components/Editor/TuiEditor';
 import axios from 'axios';
 import { Input, CloseButton, Container, Stack, Box, Button, Flex, InputLeftAddon, InputGroup, Image, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper } from '@chakra-ui/react';
@@ -19,6 +19,22 @@ type Lecture = {
 };
 
 const UploadPage: React.FC<UploadPageProps> = ({ editorRef }) => {
+
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    const role = localStorage.getItem('role');
+      if ( !isLoggedIn ){
+        window.alert("로그인 후 이용해주세요");
+        navigate("/login")
+        return;
+      }
+
+      if (role != "instructor") {
+        navigate("/error/401");
+        return;
+      }
+    }
+  )
 
   const navigate = useNavigate();
 

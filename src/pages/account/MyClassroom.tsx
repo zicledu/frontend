@@ -30,9 +30,16 @@ function MyClassroom() {
 
   useEffect(() => {
     const fetchData = async () => {
+      
+      if (userId === "null") {
+        window.alert("로그인 후 이용해주세요");
+        navigate("/login");
+        return;
+      }
 
       if (userId !== localStorage.getItem("userId")) {
         navigate("/error/401");
+        return;
       }
 
       try {
@@ -53,7 +60,7 @@ function MyClassroom() {
     };
 
     fetchData();
-  }, [userId]);
+  }, []);
 
   const handleClassClick = (classId: number) => {
     navigate(`/classroom/${classId}`);
