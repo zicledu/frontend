@@ -67,17 +67,10 @@ const handleNew = () => {
 };
 
 const handleSearch = () => {
-  axios.get(API.COURSE_LIST_BY_SEARCH, {
-    params: {
-      keyword: keyword
-    }
-  })
-  .then((response) => {
-    setSearchResults(response.data);
-  })
-  .catch((error) => {
-    console.error('Error fetching search results', error);
-  });
+  // 검색 키워드가 비어있지 않은 경우에만 검색 페이지로 이동
+  if (keyword.trim()) {
+    navigate(`/search?keyword=${keyword}`);
+  }
 };
 
   return (
