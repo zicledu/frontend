@@ -17,7 +17,7 @@ function ClassRoomVideo() {
           onClick={() => navigate("/account/classroom")}
         />
         <Heading size="sm" color={"white"}>
-          언리얼 리얼타임 렌더링으로 확장하는 Automotive 시네마틱
+          언리얼 리얼타임 렌더링으로 확장하는 Automotive 시네마틱jjjj
         </Heading>
       </Flex>
       <Box height={"calc(100% - 60px)"}>

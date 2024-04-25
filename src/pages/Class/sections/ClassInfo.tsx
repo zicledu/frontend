@@ -2,20 +2,27 @@ import React, { useState, useEffect } from "react";
 import { Viewer } from '@toast-ui/react-editor';
 import axios from 'axios';
 import { Box } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
+import { API } from "../../../../config";
 
-function ClassInfo() {
+interface classInfoProps {
+  courseId: string;
+}
+
+function ClassInfo({courseId}: classInfoProps) {
   const [markdownUrl, setMarkdownUrl] = useState('');
 
+
   useEffect(() => {
-    axios.get("http://localhost:8080/class/info")
+    axios.get( API.CLASS_INFO.replace("courseId", courseId ?? "") )
     .then(response => {
       setMarkdownUrl(response.data.markdown);
-      console.log(response.data.markdown)
+
     })
     .catch(error => {
       console.error("마크다운 URL을 가져오는데 실패했습니다.", error);
     });
-  }, []);
+  }, [courseId]);
 
   return (
     <Box h={"100%"} p={4} bg={"gray.50"} borderRadius={5}>

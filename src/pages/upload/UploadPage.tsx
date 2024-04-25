@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import TuiEditor from '../../components/Editor/TuiEditor';
 import axios from 'axios';
 import { Input, CloseButton, Container, Stack, Box, Button, Flex, InputLeftAddon, InputGroup, Image, NumberInput, NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper } from '@chakra-ui/react';
@@ -6,7 +6,7 @@ import ImageInput from './ImageInput';
 import { AddIcon, DeleteIcon, CloseIcon } from '@chakra-ui/icons';
 import { useNavigate, } from 'react-router-dom';
 import { useToast } from '@chakra-ui/react'
-
+import { API } from '../../../config';
 
 type UploadPageProps = {
   editorRef: React.RefObject<any> | null;
@@ -19,6 +19,22 @@ type Lecture = {
 };
 
 const UploadPage: React.FC<UploadPageProps> = ({ editorRef }) => {
+
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    const role = localStorage.getItem('role');
+      if ( !isLoggedIn ){
+        window.alert("로그인 후 이용해주세요");
+        navigate("/login")
+        return;
+      }
+
+      if (role != "instructor") {
+        navigate("/error/401");
+        return;
+      }
+    }
+  )
 
   const navigate = useNavigate();
 
@@ -80,10 +96,8 @@ const UploadPage: React.FC<UploadPageProps> = ({ editorRef }) => {
     const formData = new FormData();
     formData.append('file', blob);
 
-    const uploadUrl = 'http://localhost:8080/upload/image';
-
     axios
-      .post(uploadUrl, formData, {
+      .post(API.UPLOAD_IMAGE, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': 'Bearer ' + localStorage.getItem("idToken")
@@ -148,7 +162,7 @@ const UploadPage: React.FC<UploadPageProps> = ({ editorRef }) => {
   try {
 
     console.log(formData.values);
-    const response = await axios.post('http://localhost:8080/upload', formData, 
+    const response = await axios.post(API.UPLOAD_COURSE, formData, 
       {
         headers:{'Authorization': "Bearer "+localStorage.getItem("idToken")
       }});

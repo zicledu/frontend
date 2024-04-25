@@ -32,10 +32,8 @@ export const LoginPage = () => {
   const handleSignUp = async () => {
     try {
 
-
       // 입력된 데이터를 서버로 전송합니다.
       const response = await axios.post(API.LOGIN, formData);
-      console.log(response.data); // 서버 응답 로그 출력
       
       localStorage.setItem("refreshToken", response.data.tokenDto.refreshToken)
       localStorage.setItem("accessToken", response.data.tokenDto.accessToken)
@@ -47,7 +45,7 @@ export const LoginPage = () => {
       localStorage.setItem("userName", response.data.userName)
       localStorage.setItem("email", response.data.email)
       localStorage.setItem("expiredDate", response.data.expiredDate)
-      console.log(response.data)
+      localStorage.setItem("role", response.data.role)
       
       navigate("/");
     } catch (error) {
@@ -55,9 +53,8 @@ export const LoginPage = () => {
         ...prevFormData,
         password: ""
       }));
-
+      console.log(error)
       window.alert("잘못된 아이디 또는 비밀번호 입니다.")
-      console.error('There was an error!', error); // 오류 발생
     }
   };
 
