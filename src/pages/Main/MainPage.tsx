@@ -20,19 +20,11 @@ import ContentArea from '../../components/ContentArea';
 import { API } from '../../../config';
 // 강의 정보에 대한 타입 정의
 type CourseInfo = {
-<<<<<<< HEAD
   title: string;
   description: string;
   classId: number;
   thumbnailPath: string;
   courseId: number;
-  
-=======
-    title: string;
-    description: string;
-    classId: number;
-    thumbnailPath: string;
->>>>>>> cb81b8fd1e79602f1a106c84a5544fd5e45651e0
 };
 
 const ClassCardList = ({ children }: { children: ReactNode }) => (
@@ -51,121 +43,6 @@ function MainPage() {
     const [keyword, setKeyword] = useState('');
     const [searchResults, setSearchResults] = useState([]);
 
-<<<<<<< HEAD
-  // 페이지 로드 시 최고의 결과와 최신의 결과를 가져오는 useEffect
-  useEffect(() => {
-    handleBest();
-    handleNew();
-  }, []); // 페이지가 로드될 때 한 번만 실행
-//서버에서 최고의 결과를 가져오는 함수
-const handleBest = async () => {
-  axios.get(API.COURSE_LIST_BY_BEST)
-  .then((response) => {
-    setBestResults(response.data.data); // 최고의 결과를 state에 저장
-    console.log(response);
-  })
-  .catch((error) => {
-    console.error('Error fetching best results', error);
-  });
-};
-
-// 서버에서 최신의 결과를 가져오는 함수
-const handleNew = async () => {
-  axios.get(API.COURSE_LIST_BY_NEW)
-  .then((response) => {
-    setNewResults(response.data.data); // 최신의 결과를 state에 저장
-    console.log(response);
-  })
-  .catch((error) => {
-    console.error('Error fetching new results', error);
-  });
-};
-
-const handleSearch = async () => {
-  axios.get(API.COURSE_LIST_BY_SEARCH, {
-    params: {
-      keyword: keyword
-    }
-  })
-  .then((response) => {
-    setSearchResults(response.data);
-  })
-  .catch((error) => {
-    console.error('Error fetching search results', error);
-  });
-};
-
-  return (
-    <>
-      <Slider />
-      <ContentArea>
-        <Flex
-          flexDirection={"column"}
-          className={"content-wrapper"}
-          p={4}
-          width={"100%"}
-          gap={4}
-        >
-          <Box mx="auto" width="50%">
-            <Flex align="center" justify="center">
-              <input
-                type="text"
-                placeholder="검색어를 입력하세요"
-                value={keyword}
-                onChange={(event) => setKeyword(event.target.value)}
-                onKeyPress={(event) => {
-                  if (event.key === "Enter") {
-                    handleSearch();
-                  }
-                }}
-                style={{ padding: "8px", fontSize: "16px", borderRadius: "999px", width: "100%", paddingLeft: "20px" }}
-                />
-                <Button 
-                  onClick={handleSearch}
-                  borderRadius="full"
-                  bgColor={useColorModeValue("gray.200", "gray.700")}
-                  _hover={{ bgColor: useColorModeValue("gray.300", "gray.600")}}
-                  ml={2}
-                >
-                  <SearchIcon />
-                 </Button>
-              </Flex>
-          </Box>
-          <Box>
-            <SectionTitle title={"BEST"} />
-            <ClassCardList>
-              {bestResults.map((item, idx) => (
-                <ClassCard
-                  key={idx}
-                  title={item.title}
-                  desc={item.description}
-                  onClick={() => navigate(`/class/${item.courseId}`)}
-                  imgSrc={item.thumbnailPath}
-                />
-              ))}
-            </ClassCardList>
-          </Box>
-          
-          <Box>
-            <SectionTitle title={"New"} />
-            <ClassCardList>
-              {newResults.map((item, idx) => (
-                <ClassCard
-                  key={idx}
-                  title={item.title}
-                  desc={item.description}
-                  onClick={() => navigate(`/class/${item.courseId}`)}
-                  imgSrc={item.thumbnailPath}
-                />
-              ))}
-            </ClassCardList>
-          </Box>
-          
-        </Flex>
-      </ContentArea>
-    </>
-  );
-=======
     // 페이지 로드 시 최고의 결과와 최신의 결과를 가져오는 useEffect
     useEffect(() => {
         handleBest();
@@ -248,7 +125,7 @@ const handleSearch = async () => {
                                     key={idx}
                                     title={item.title}
                                     desc={item.description}
-                                    onClick={() => navigate(`/class/${item.classId}`)}
+                                    onClick={() => navigate(`/class/${item.courseId}`)}
                                     imgSrc={item.thumbnailPath}
                                 />
                             ))}
@@ -263,7 +140,7 @@ const handleSearch = async () => {
                                     key={idx}
                                     title={item.title}
                                     desc={item.description}
-                                    onClick={() => navigate(`/class/${item.classId}`)}
+                                    onClick={() => navigate(`/class/${item.courseId}`)}
                                     imgSrc={item.thumbnailPath}
                                 />
                             ))}
@@ -273,7 +150,6 @@ const handleSearch = async () => {
             </ContentArea>
         </>
     );
->>>>>>> cb81b8fd1e79602f1a106c84a5544fd5e45651e0
 }
 
 export default MainPage;
