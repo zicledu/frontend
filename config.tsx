@@ -2,6 +2,7 @@
 
 const IP_ADDRESS = "https://sh-test-alb-1603901733.ap-northeast-2.elb.amazonaws.com/course/best";
 
+
 // const IP_ADDRESS = "https://zhl2juvik8.execute-api.ap-northeast-2.amazonaws.com/lms";
 
 // const IP_ADDRESS = "http://lms-alb-1236361820.ap-northeast-2.elb.amazonaws.com";
