@@ -14,6 +14,8 @@ type CourseInfo = {
   description: string;
   classId: number;
   thumbnailPath: string;
+  courseId: number;
+  
 };
 
 const ClassCardList = ({ children }: { children: ReactNode }) => (
@@ -43,7 +45,7 @@ function MainPage() {
     handleNew();
   }, []); // 페이지가 로드될 때 한 번만 실행
 //서버에서 최고의 결과를 가져오는 함수
-const handleBest = () => {
+const handleBest = async () => {
   axios.get(API.COURSE_LIST_BY_BEST)
   .then((response) => {
     setBestResults(response.data.data); // 최고의 결과를 state에 저장
@@ -55,7 +57,7 @@ const handleBest = () => {
 };
 
 // 서버에서 최신의 결과를 가져오는 함수
-const handleNew = () => {
+const handleNew = async () => {
   axios.get(API.COURSE_LIST_BY_NEW)
   .then((response) => {
     setNewResults(response.data.data); // 최신의 결과를 state에 저장
@@ -66,7 +68,7 @@ const handleNew = () => {
   });
 };
 
-const handleSearch = () => {
+const handleSearch = async () => {
   axios.get(API.COURSE_LIST_BY_SEARCH, {
     params: {
       keyword: keyword
@@ -124,7 +126,7 @@ const handleSearch = () => {
                   key={idx}
                   title={item.title}
                   desc={item.description}
-                  onClick={() => navigate(`/class/${item.classId}`)}
+                  onClick={() => navigate(`/class/${item.courseId}`)}
                   imgSrc={item.thumbnailPath}
                 />
               ))}
@@ -139,7 +141,7 @@ const handleSearch = () => {
                   key={idx}
                   title={item.title}
                   desc={item.description}
-                  onClick={() => navigate(`/class/${item.classId}`)}
+                  onClick={() => navigate(`/class/${item.courseId}`)}
                   imgSrc={item.thumbnailPath}
                 />
               ))}
