@@ -1,6 +1,6 @@
 // const IP_ADDRESS = import.meta.env.VITE_IP_ADDRESS || import.meta.env.GIT_IP_ADDRESS;
 
-const IP_ADDRESS = "https://sh-test-alb-1603901733.ap-northeast-2.elb.amazonaws.com/course/best";
+const IP_ADDRESS = "https://sh-test-alb-1603901733.ap-northeast-2.elb.amazonaws.com";
 
 
 // const IP_ADDRESS = "https://zhl2juvik8.execute-api.ap-northeast-2.amazonaws.com/lms";
