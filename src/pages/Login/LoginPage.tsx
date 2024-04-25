@@ -47,7 +47,7 @@ export const LoginPage = () => {
       localStorage.setItem("expiredDate", response.data.expiredDate)
       localStorage.setItem("role", response.data.role)
       
-      navigate("/");
+      navigate(`${API.HOME}`);
     } catch (error) {
       setFormData((prevFormData) => ({
         ...prevFormData,

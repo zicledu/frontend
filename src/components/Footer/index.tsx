@@ -8,7 +8,7 @@ import {
   Image,
   Text,
 } from "@chakra-ui/react";
-import logoImage from "/images/monstera-logo.png";
+import logoImage from "/images/ZICLEDU-logo.png";
 import { useNavigate } from "react-router-dom";
 import ContentBox from "../ContentBox";
 function Footer() {
