@@ -112,7 +112,7 @@ const handleSearch = () => {
           <Box>
             <SectionTitle title={"BEST"} />
             <ClassCardList>
-              {bestResults.map((item, idx) => (
+              {bestResults?.map((item, idx) => (
                 <ClassCard
                   key={idx}
                   title={item.title}
@@ -127,7 +127,7 @@ const handleSearch = () => {
           <Box>
             <SectionTitle title={"New"} />
             <ClassCardList>
-              {newResults.map((item, idx) => (
+              {newResults?.map((item, idx) => (
                 <ClassCard
                   key={idx}
                   title={item.title}
