@@ -12,9 +12,10 @@ import {
     IconButton,
     useColorModeValue,
     background,
+    Text,
+    Stack
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
-import { Text } from '@chakra-ui/react';
 import axios from 'axios';
 import ClassCard from '../../components/ClassCard';
 import SectionTitle from '../../components/SectionTitle';
@@ -68,7 +69,7 @@ function SearchPage() {
   
 
     return (
-        <>
+      <>
             <ContentArea>
                 <Flex flexDirection={'column'} className={'content-wrapper'} p={4} width={'100%'} gap={4}>
                     <SearchBar placeholder="검색어를 입력하세요" purpose="search" />

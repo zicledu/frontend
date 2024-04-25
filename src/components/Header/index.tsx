@@ -3,7 +3,7 @@ import { Flex, Box, Text, Hide, Show, Image } from "@chakra-ui/react";
 import axios from "axios";
 import React, {useState, useEffect} from "react";
 import CustomDrawer from "../CustomDrawer";
-import logoImage from "/images/monstera-logo.png";
+import logoImage from "/images/ZICLEDU-logo.png";
 import ContentBox from "../ContentBox";
 import { API } from "../../../config"
 
