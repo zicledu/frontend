@@ -1,10 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Flex, Heading, IconButton } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { API } from "../../../../config";
+
+type MyCourseInfo = {
+  title: string;
+  lectureOrder: number;
+  durationMinutes: string;
+  videoPath720: string;
+  videoPath1080: string;
+  videoPathOriginal: string;
+  thumbnailPath: string;
+};
+
+
+
 
 function ClassRoomVideo() {
   const navigate = useNavigate();
+  const [courseResults, setCourseResults] = useState<MyCourseInfo[]>([]);
+  const handleCourseList = () => {
+    axios.get(API.MY_COURSE_LIST)
+    .then((response) => {
+      setCourseResults(response.data.data); // 최고의 결과를 state에 저장
+    })
+    .catch((error) => {
+      console.error('Error fetching courseList results', error);
+    });
+  };
+  
+  useEffect(() => {
+    handleCourseList();
+  }, []);
   return (
     <>
       <Flex h={"60px"} bg={"gray.800"} alignItems={"center"} gap={3} p={3}>
@@ -17,7 +46,7 @@ function ClassRoomVideo() {
           onClick={() => navigate("/account/classroom")}
         />
         <Heading size="sm" color={"white"}>
-          언리얼 리얼타임 렌더링으로 확장하는 Automotive 시네마틱jjjj
+          {courseResults.length > 0 && courseResults[0].title}
         </Heading>
       </Flex>
       <Box height={"calc(100% - 60px)"}>
