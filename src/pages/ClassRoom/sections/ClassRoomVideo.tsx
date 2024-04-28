@@ -5,10 +5,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { API } from "../../../../config";
 import axios from "axios";
 
-function ClassRoomVideo(props: { userId: any; courseId: any; videoPath: any; lectureTitle: any }) {
+function ClassRoomVideo(props: { userId: any; courseId: any;}) {
    
-  const { userId, courseId, videoPath, lectureTitle } = props;
-  console.log(lectureTitle);
+  const { userId, courseId} = props;
   const navigate = useNavigate();
   const [lectureList, setLectureList] = useState<CourseInfo[]>([]);
 
@@ -62,7 +61,7 @@ function ClassRoomVideo(props: { userId: any; courseId: any; videoPath: any; lec
           onClick={() => navigate("/account/classroom")}
         />
         <Heading size="sm" color={"white"}>
-          {lectureTitle ? lectureTitle : firstLectureWithTitle}
+          {firstLectureWithTitle}
           
         </Heading>
       </Flex>
