@@ -1,6 +1,7 @@
 import React, { useRef, ChangeEvent, useState } from 'react';
 
 type ImageInputProps = {
+  
   onImageChange: (file: File) => void;
   defaultSrc?: string;
 };
@@ -33,7 +34,7 @@ const ImageInput: React.FC<ImageInputProps> = ({ onImageChange, defaultSrc = 'ht
       <img
         src={imageSrc}
         alt="Uploaded Image"
-        style={{ width: '150px', height: '150px', cursor: 'pointer' }}
+        style={{ width: '400px', height: '250px', cursor: 'pointer', margin: 'auto' }}
         onClick={handleImageClick}
       />
       <input

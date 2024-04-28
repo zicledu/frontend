@@ -201,10 +201,12 @@ const UploadPage: React.FC<UploadPageProps> = ({ editorRef }) => {
 
   return (
     <Container maxW='1000px' marginTop={'10px'}>
-      <Stack spacing={2} direction="row" marginBottom={1}>
-        <ImageInput 
-          defaultSrc="https://via.placeholder.com/500x250" 
-          onImageChange={handleImageChange} />
+
+      <ImageInput 
+        
+        defaultSrc="https://placehold.co/350x200?text=Click+here+to+upload+thumbnail" 
+        onImageChange={handleImageChange} />
+      <div style={{display: 'flex', justifyContent: 'center'}}>
         <Input
           ref={titleInputRef} // ref 추가
           placeholder='제목을 입력하세요'
@@ -213,9 +215,15 @@ const UploadPage: React.FC<UploadPageProps> = ({ editorRef }) => {
           size='lg'
           value={title}
           onChange={handleTitleChange}
-          height='150px'
+          height='50px'
+          w={550}
+          mt={3}
+          mb={5}
+          border={"none"}
+          style={{ textAlign: 'center' }}
         />
-      </Stack>
+      </div>
+
       <InputGroup mb={1}>
         <InputLeftAddon>강의 오픈 일정</InputLeftAddon>
         <Input 
@@ -285,7 +293,7 @@ const UploadPage: React.FC<UploadPageProps> = ({ editorRef }) => {
             <label htmlFor={`fileInput-${index}`}>
               {lecture.file ? (
                 <span
-                  style={{ marginTop: '1px', cursor: 'pointer', display: 'block', width: '250px', height: '50px', lineHeight: '50px' }}
+                  style={{ marginTop: '1px', cursor: 'pointer', display: 'block', width: '500px', height: '50px', lineHeight: '50px' }}
                 >
                   {lecture.file.name}
                 </span>
