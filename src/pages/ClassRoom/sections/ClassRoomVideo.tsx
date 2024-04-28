@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Box, Flex, Heading, IconButton } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { useNavigate, useParams } from "react-router-dom";
-import { API } from "../../../../config";
+import { useNavigate } from "react-router-dom";
+import ReactHlsPlayer from 'react-hls-player';
 import axios from "axios";
+import { API } from "../../../../config";
 
 function ClassRoomVideo(props: { userId: any; courseId: any;}) {
-   
-  const { userId, courseId} = props;
+  const { userId, courseId } = props;
   const navigate = useNavigate();
   const [lectureList, setLectureList] = useState<CourseInfo[]>([]);
+  const playerRef = useRef<HTMLVideoElement>(null); // Add a ref for the player
 
   type CourseInfo = {
     title: string;
@@ -45,9 +46,8 @@ function ClassRoomVideo(props: { userId: any; courseId: any;}) {
   };
 
   const firstLectureWithTitle = lectureList.find((lecture) => lecture.lectureOrder === 1)?.title;
-  const firstLectureVideoPathOriginal = lectureList.find((lecture) => lecture.lectureOrder === 1)?.videoPathOriginal;
-  const src = firstLectureVideoPathOriginal;
-  console.log(src);
+  const firstLectureVideoPathOriginal = lectureList.find((lecture) => lecture.lectureOrder === 1)?.videoPath1080;
+  const src = firstLectureVideoPathOriginal ?? '';
 
   return (
     <>
@@ -62,13 +62,17 @@ function ClassRoomVideo(props: { userId: any; courseId: any;}) {
         />
         <Heading size="sm" color={"white"}>
           {firstLectureWithTitle}
-          
         </Heading>
       </Flex>
       <Box height={"calc(100% - 60px)"}>
-        <video width={"100%"} height={"100%"} controls>
-          <source src={src} type="video/mp4" />
-        </video>
+        <ReactHlsPlayer
+          src={src}
+          autoPlay
+          controls
+          width="100%"
+          height="100%"
+          playerRef={playerRef} // Provide the playerRef prop
+        />
       </Box>
     </>
   );

@@ -124,7 +124,8 @@ function MainPage() {
                                 <ClassCard
                                     key={idx}
                                     title={item.title}
-                                    desc={item.description}
+                                    desc=''
+                                    // desc={item.description}
                                     onClick={() => navigate(`/class/${item.courseId}`)}
                                     imgSrc={item.thumbnailPath}
                                 />
@@ -139,7 +140,8 @@ function MainPage() {
                                 <ClassCard
                                     key={idx}
                                     title={item.title}
-                                    desc={item.description}
+                                    desc=''
+                                    // desc={item.description}
                                     onClick={() => navigate(`/class/${item.courseId}`)}
                                     imgSrc={item.thumbnailPath}
                                 />
