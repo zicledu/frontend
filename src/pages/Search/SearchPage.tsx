@@ -4,8 +4,9 @@ import axios from 'axios';
 import { Box, Flex, SimpleGrid, Text } from '@chakra-ui/react';
 import ClassCard from '../../components/ClassCard';
 import ContentArea from '../../components/ContentArea';
-import { API } from '../../../config';
 import SearchBar from '../../components/SearchBar/SearchBar'; // SearchBar 컴포넌트 import
+import { API } from '../../../config';
+import './SearchPageCSS.css'; // CSS 파일 import
 
 // 검색 정보에 대한 타입 정의
 type CourseSearchInfo = {
@@ -13,8 +14,6 @@ type CourseSearchInfo = {
     description: string;
     courseId: number;
     thumbnailPath: string;
-    tags: string;
-    userName: string;
 };
 
 const ClassCardList = ({ children }: { children: ReactNode }) => (
@@ -27,6 +26,8 @@ function SearchPage() {
     const navigate = useNavigate();
     const [searchResults, setSearchResults] = useState<CourseSearchInfo[]>([]);
     const location = useLocation();
+    const [currentPage, setCurrentPage] = useState(1); // Current page state
+    const itemsPerPage = 2; // Number of items per page
 
     useEffect(() => {
         // search 속성에 접근하면 쿼리 스트링 값을 얻을 수 있다.
@@ -46,15 +47,33 @@ function SearchPage() {
         fetchLectures();
     }, [location]);
 
+    // Calculate total pages based on the number of search results and items per page
+    const totalPages = Math.ceil(searchResults.length / itemsPerPage);
+
+    // Function to get the current page items based on the current page number
+    const getCurrentPageItems = () => {
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        return searchResults.slice(startIndex, endIndex);
+    };
+
+    // Function to handle page change
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+    };
+
+    // Get current page items
+    const currentItems = getCurrentPageItems();
+
     return (
         <>
             <ContentArea>
                 <Flex flexDirection={'column'} className={'content-wrapper'} p={4} width={'100%'} gap={4}>
                     <SearchBar placeholder="검색어를 입력하세요" purpose="search" /> {/* SearchBar 컴포넌트 추가 */}
-                    {searchResults.length > 0 ? (
+                    {currentItems.length > 0 ? (
                         <Box>
                             <ClassCardList>
-                                {searchResults.map((item, idx) => (
+                                {currentItems.map((item, idx) => (
                                     <ClassCard
                                         key={idx}
                                         title={item.title}
@@ -64,7 +83,18 @@ function SearchPage() {
                                     />
                                 ))}
                             </ClassCardList>
-                            <Box mt={250} />
+                            {/* Pagination component */}
+                            <div className="pagination">
+                                {Array.from({ length: totalPages }, (_, index) => (
+                                    <button
+                                        key={index}
+                                        className={currentPage === index + 1 ? 'active' : ''}
+                                        onClick={() => handlePageChange(index + 1)}
+                                    >
+                                        {index + 1}
+                                    </button>
+                                ))}
+                            </div>
                         </Box>
                     ) : (
                         <Box>

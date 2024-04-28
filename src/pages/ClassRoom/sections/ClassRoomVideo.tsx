@@ -1,10 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Flex, Heading, IconButton } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { API } from "../../../../config";
+import axios from "axios";
 
-function ClassRoomVideo() {
+function ClassRoomVideo(props: { userId: any; courseId: any; videoPath: any; lectureTitle: any }) {
+   
+  const { userId, courseId, videoPath, lectureTitle } = props;
+  console.log(lectureTitle);
   const navigate = useNavigate();
+  const [lectureList, setLectureList] = useState<CourseInfo[]>([]);
+
+  type CourseInfo = {
+    title: string;
+    description: string;
+    classId: number;
+    thumbnailPath: string;
+    courseId: number;
+    lectureOrder: number;
+    durationMinutes: string;
+    videoPath720: string;
+    videoPath1080: string;
+    videoPathOriginal: string;
+  };
+
+  useEffect(() => {
+    handleCourse();
+  }, []);
+
+  const handleCourse = () => {
+    axios
+      .get(API.MY_COURSE_LIST.replace("userId", userId).replace("courseId", courseId), {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("idToken"),
+        },
+      })
+      .then((response) => {
+        console.log("Course data received:", response.data.data);
+        setLectureList(response.data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching lecture results", error);
+      });
+  };
+
+  const firstLectureWithTitle = lectureList.find((lecture) => lecture.lectureOrder === 1)?.title;
+  const firstLectureVideoPathOriginal = lectureList.find((lecture) => lecture.lectureOrder === 1)?.videoPathOriginal;
+  const src = firstLectureVideoPathOriginal;
+  console.log(src);
+
   return (
     <>
       <Flex h={"60px"} bg={"gray.800"} alignItems={"center"} gap={3} p={3}>
@@ -17,16 +62,14 @@ function ClassRoomVideo() {
           onClick={() => navigate("/account/classroom")}
         />
         <Heading size="sm" color={"white"}>
-          언리얼 리얼타임 렌더링으로 확장하는 Automotive 시네마틱jjjj
+          {lectureTitle ? lectureTitle : firstLectureWithTitle}
+          
         </Heading>
       </Flex>
       <Box height={"calc(100% - 60px)"}>
-        <iframe
-          width={"100%"}
-          height={"100%"}
-          title="js"
-          src="https://www.youtube.com/embed/W6NZfCO5SIk"
-        />
+        <video width={"100%"} height={"100%"} controls>
+          <source src={src} type="video/mp4" />
+        </video>
       </Box>
     </>
   );

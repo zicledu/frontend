@@ -50,7 +50,7 @@ function App() {
           <Route path="/signup" element={<SignUpPage />} />
         </Route>
         <Route path="/classroom">
-          <Route path="/classroom/:classId" element={<ClassRoomPage />} />
+          <Route path="/classroom/:userId/:courseId" element={<ClassRoomPage />} />
         </Route>
         {/* 인증되지 않은 경로로의 리디렉션 처리 */}
         <Route path="/error/401" element={<UnAuthorizedPage/>}></Route>
