@@ -14,12 +14,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { API } from "../../../config"
 
+
 interface MyClassDataType {
   id: number;
   courseTitle: string;
   instructor: string;
   enrolledAt: string;
   thumbnailPath: string;
+  userId: string;
 }
 
 function MyClassroom() {
@@ -27,43 +29,41 @@ function MyClassroom() {
   const { userId } = useParams();
 
   const [myClasses, setMyClasses] = useState<MyClassDataType[]>([]);
+ 
 
   useEffect(() => {
     const fetchData = async () => {
-      
-      if (userId === "null") {
+      if (userId !== "null") { // userId가 "null"이 아닌 경우에만 데이터를 가져옴
+        if (userId !== localStorage.getItem("userId")) {
+          navigate("/error/401");
+          return;
+        }
+
+        try {
+          const response = await axios.get(
+            API.COURSE_LIST_BY_USERID.replace("userId", userId ?? ""),
+            {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("idToken")
+              }
+            }
+          );
+          setMyClasses(response.data.data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      } else {
         window.alert("로그인 후 이용해주세요");
         navigate("/login");
-        return;
-      }
-
-      if (userId !== localStorage.getItem("userId")) {
-        navigate("/error/401");
-        return;
-      }
-
-      try {
-        const response = await axios.get(
-          API.COURSE_LIST_BY_USERID.replace("userId", userId ?? "")
-        , {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("idToken")
-            }
-          }
-       )
-          
-          ;
-        setMyClasses(response.data.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [userId]); // userId가 변경될 때마다 다시 호출
 
-  const handleClassClick = (classId: number) => {
-    navigate(`/classroom/${classId}`);
+  const handleClassClick = (courseId: number) => {
+    console.log(`/classroom/${userId}/${courseId}`);
+    navigate(`/classroom/${userId}/${courseId}`);
   };
 
   return (
