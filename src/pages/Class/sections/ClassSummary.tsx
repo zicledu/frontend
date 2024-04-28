@@ -26,7 +26,7 @@ import {
   RepeatIcon,
 } from "@chakra-ui/icons";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { API } from "../../../../config"; 
 
 interface ClassSummaryProps {
@@ -58,6 +58,7 @@ function ClassSummary({ courseId }: ClassSummaryProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef<HTMLButtonElement>(null); // 취소 버튼에 대한 참조
   const toast = useToast(); // useToast 훅 사용
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,6 +74,12 @@ function ClassSummary({ courseId }: ClassSummaryProps) {
   }, [courseId]);
 
   const handleEnrollment = async () => {
+    if (!localStorage.getItem('userId')) {
+      window.alert("로그인 후 이용해주세요");
+      navigate("/login")
+      return;
+    }
+
     onOpen(); // 알람 열기
   };
 

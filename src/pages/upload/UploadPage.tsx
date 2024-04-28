@@ -202,54 +202,52 @@ const UploadPage: React.FC<UploadPageProps> = ({ editorRef }) => {
   return (
     <Container maxW='1000px' marginTop={'10px'}>
 
-      <ImageInput 
-        
-        defaultSrc="https://placehold.co/350x200?text=Click+here+to+upload+thumbnail" 
-        onImageChange={handleImageChange} />
-      <div style={{display: 'flex', justifyContent: 'center'}}>
-        <Input
-          ref={titleInputRef} // ref 추가
-          placeholder='제목을 입력하세요'
-          isInvalid={isTitleInvalid}
-          errorBorderColor='crimson'
-          size='lg'
-          value={title}
-          onChange={handleTitleChange}
-          height='50px'
-          w={550}
-          mt={3}
-          mb={5}
-          border={"none"}
-          style={{ textAlign: 'center' }}
-        />
-      </div>
-
-      <InputGroup mb={1}>
-        <InputLeftAddon>강의 오픈 일정</InputLeftAddon>
-        <Input 
-          placeholder='오픈 예정 날짜를 선택해주세요' 
-          size='md' 
-          type='datetime-local' 
-          value={selectedDate}
-          onChange={(e) => setSelectedDate(e.target.value)}
+      <Flex justifyContent="space-between" alignItems="center" mb={3}>
+        {/* 섬네일 이미지 입력 */}
+        <Box flex="1">
+          <ImageInput 
+            defaultSrc="https://placehold.co/350x200?text=Click+here+to+upload+thumbnail" 
+            onImageChange={handleImageChange} 
           />
-      </InputGroup>
+        </Box>
 
-      <InputGroup>
-          <NumberInput 
-          value={price}
-          onChange={(_, valueNumber) => handlePriceChange(valueNumber)}
-          
-          >
-            <NumberInputField 
-              placeholder='0000'  
-              />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
-      </InputGroup>
+        {/* 제목, 일정, 가격 입력 */}
+        <Box flex="3" ml={4}>
+          {/* 제목 입력 */}
+          <InputGroup mb={1}>
+            <InputLeftAddon>제목</InputLeftAddon>
+            <Input
+              type="text"
+              placeholder="제목을 입력하세요"
+              value={title}
+              onChange={handleTitleChange}
+            />
+          </InputGroup>
+
+          {/* 일정 입력 */}
+          <InputGroup mb={1}>
+            <InputLeftAddon>오픈</InputLeftAddon>
+            <Input 
+              placeholder="오픈 예정 날짜를 선택해주세요" 
+              type="datetime-local" 
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+            />
+          </InputGroup>
+
+          {/* 가격 입력 */}
+          <InputGroup >
+            <InputLeftAddon>가격</InputLeftAddon>
+            <NumberInput 
+              value={price}
+              onChange={(_, valueNumber) => handlePriceChange(valueNumber)}
+              w={"100%"}
+            >
+              <NumberInputField placeholder="0000" />
+            </NumberInput>
+          </InputGroup>
+        </Box>
+      </Flex>
       
       <Stack>
         

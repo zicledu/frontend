@@ -143,7 +143,7 @@ function ClassRoomSideBar(props: { userId: any; courseId: any; }) {
         </TabPanels>
       </Tabs>
       {/* ClassRoomVideo 컴포넌트에 선택된 강의의 비디오 경로와 제목을 전달합니다. */}
-      {selectedVideoPath && <ClassRoomVideo userId={userId} courseId={courseId} videoPath={selectedVideoPath} lectureTitle={selectedLectureTitle} />}
+      {selectedVideoPath && <ClassRoomVideo userId={userId} courseId={courseId}  />}
     </>
   );
 }
