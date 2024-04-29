@@ -21,10 +21,11 @@
     border: none;
     background-color: #f0f0f0;
     cursor: pointer;
+    border-radius: 20px;
   }
   
   .pagination button.active {
-    background-color: #007bff;
+    background-color: #707070;
     color: white;
   }
   

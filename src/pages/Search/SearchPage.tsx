@@ -27,7 +27,7 @@ function SearchPage() {
     const [searchResults, setSearchResults] = useState<CourseSearchInfo[]>([]);
     const location = useLocation();
     const [currentPage, setCurrentPage] = useState(1); // Current page state
-    const itemsPerPage = 2; // Number of items per page
+    const itemsPerPage = 6; // Number of items per page
 
     useEffect(() => {
         // search 속성에 접근하면 쿼리 스트링 값을 얻을 수 있다.
@@ -39,6 +39,7 @@ function SearchPage() {
                 const getValue = keyWord ? API.COURSE_LIST_BY_SEARCH + keyWord : API.COURSE_LIST_BY_ALL;
                 const response = await axios.get(`${getValue}`);
                 setSearchResults(response.data.data);
+                setCurrentPage(1); // 검색 시 페이지를 1페이지로 설정
             } catch (error) {
                 console.error('검색 중 오류가 발생했습니다:', error);
             }

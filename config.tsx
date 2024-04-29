@@ -1,13 +1,18 @@
 //const IP_ADDRESS = import.meta.env.VITE_IP_ADDRESS || import.meta.env.GIT_IP_ADDRESS;
+//const IP_ADDRESS = import.meta.env.VITE_IP_ADDRESS || import.meta.env.GIT_IP_ADDRESS;
 
 // const IP_ADDRESS = "https://sh-test-alb-1603901733.ap-northeast-2.elb.amazonaws.com";
 
 // const IP_ADDRESS = "https://zhl2juvik8.execute-api.ap-northeast-2.amazonaws.com/lms";
 
 // const IP_ADDRESS = "https://zhl2juvik8.execute-api.ap-northeast-2.amazonaws.com/lms";
+<<<<<<< HEAD
 // const IP_ADDRESS = "https://alb.zicledu.com";
 const IP_ADDRESS = "https://nlb.zicledu.com/";
 
+=======
+const IP_ADDRESS = "https://alb.zicledu.com";
+>>>>>>> 30c78a60f7df1ee5072ead73d5c1b192b5fb5720
 // const IP_ADDRESS = "http://lms-alb-1236361820.ap-northeast-2.elb.amazonaws.com";
 export const API = {
     MY_COURSE_LIST : `${IP_ADDRESS}/classroom/userId/courseId`,
