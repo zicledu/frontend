@@ -5,7 +5,8 @@
 // const IP_ADDRESS = "https://zhl2juvik8.execute-api.ap-northeast-2.amazonaws.com/lms";
 
 // const IP_ADDRESS = "https://zhl2juvik8.execute-api.ap-northeast-2.amazonaws.com/lms";
-const IP_ADDRESS = "https://alb.zicledu.com";
+// const IP_ADDRESS = "https://alb.zicledu.com";
+const IP_ADDRESS = "https://nlb.zicledu.com/";
 
 // const IP_ADDRESS = "http://lms-alb-1236361820.ap-northeast-2.elb.amazonaws.com";
 export const API = {

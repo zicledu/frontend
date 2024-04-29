@@ -5,23 +5,23 @@ import ContentBox from "../ContentBox";
 
 const SliderContentInfo = [
   {
-    image: "public/images/main1.png"
+    image: "../../public/images/main1.png"
   },
   {
 
-    image: "public/images/main2.png"
+    image: "../../public/images/main2.png"
   },
   {
 
-    image: "public/images/main3.png"
+    image: "../../public/images/main3.png"
   },
   {
 
-    image: "public/images/main4.png"
+    image: "../../public/images/main4.png"
   },
   {
 
-    image: "public/images/main5.png"
+    image: "../../public/images/main5.png"
   },
 ];
 
